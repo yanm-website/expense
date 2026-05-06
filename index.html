@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>心智账本</title>
     <style>
-        /* 苹果系统级颜色与基础设定 */
+        /* 苹果系统级颜色与基础设定 (原封不动保留) */
         :root {
             --bg-color: #F2F2F7;
             --card-bg: #FFFFFF;
@@ -14,7 +14,7 @@
             --apple-blue: #007AFF;
             --input-bg: #F2F2F7;
             --divider: rgba(60, 60, 67, 0.08); 
-            --table-zoom: 1rem; /* 表格缩放变量 */
+            --table-zoom: 1rem;
         }
 
         body {
@@ -29,7 +29,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. 主界面白板 (原封不动保留) */
+        /* 1. 主界面白板 */
         #main-dashboard {
             width: 70%; 
             max-width: 900px;
@@ -58,7 +58,7 @@
         .quadrant h2 { font-size: 1.2rem; color: var(--text-sub); font-weight: 500; margin-bottom: 12px; }
         .quadrant .balance { font-size: 2.5rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; transition: color 0.3s; }
 
-        /* 2. 齿轮设置按钮 (原封不动保留) */
+        /* 2. 齿轮设置按钮 */
         #settings-btn {
             position: fixed;
             top: 40px; 
@@ -79,10 +79,10 @@
         #settings-btn:hover { transform: scale(1.05) rotate(15deg); }
         #settings-btn svg { width: 34px; height: 34px; color: #FFF; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
 
-        /* 新增：齿轮下拉菜单 */
+        /* 齿轮下拉菜单 */
         #settings-dropdown {
             position: fixed;
-            top: 115px; /* 在齿轮正下方 */
+            top: 115px; 
             right: 40px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -106,14 +106,14 @@
         .dropdown-item:last-child { border-bottom: none; }
         .dropdown-item:hover { background: rgba(0,0,0,0.05); }
 
-        /* 新增：左上角表格(Excel)按钮 */
+        /* 左上角表格(Excel)按钮 */
         #table-btn {
             position: fixed;
             top: 40px; 
             left: 40px; 
             width: 65px;
             height: 65px;
-            background: linear-gradient(135deg, #107C41, #18A558); /* Excel经典绿卡通质感 */
+            background: linear-gradient(135deg, #107C41, #18A558); 
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -127,7 +127,7 @@
         #table-btn:hover { transform: scale(1.05); }
         #table-btn svg { width: 34px; height: 34px; color: #FFF; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
 
-        /* 3. 悬浮加号按钮 (原封不动保留) */
+        /* 3. 悬浮加号按钮 */
         #add-btn {
             position: fixed; 
             bottom: 40px;
@@ -154,7 +154,7 @@
             display: none; justify-content: center; align-items: center; z-index: 100;
         }
 
-        /* 5. 齿轮设置卡片 (原封不动保留) */
+        /* 5. 齿轮设置卡片 */
         #settings-card {
             background: rgba(255, 255, 255, 0.95); width: 80%; max-width: 400px; 
             border-radius: 28px; padding: 30px 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -162,7 +162,7 @@
         }
         #settings-card h3 { margin: 0 0 10px 0; text-align: center; font-size: 1.3rem; color: var(--text-main); }
 
-        /* 新增：删除内容弹窗 */
+        /* 删除内容弹窗 */
         #delete-card {
             background: rgba(255, 255, 255, 0.95); width: 85%; max-width: 800px; height: 70vh;
             border-radius: 28px; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -184,13 +184,12 @@
         .del-info { flex: 1; font-size: 1.05rem; color: var(--text-main); display: flex; flex-direction: column; gap: 5px; }
         .del-time { font-size: 0.85rem; color: var(--text-sub); }
 
-        /* 新增：Excel表格弹窗 */
+        /* Excel表格弹窗 */
         #table-card {
             background: rgba(255, 255, 255, 0.95); width: 95%; max-width: 1400px; height: 85vh;
             border-radius: 28px; padding: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             display: flex; flex-direction: column; position: relative;
         }
-        /* 表格缩放控制器 */
         #zoom-controls {
             display: flex; justify-content: center; gap: 15px; margin-bottom: 10px;
         }
@@ -200,18 +199,17 @@
         }
         #table-wrapper {
             flex: 1; overflow: auto; border-radius: 12px; border: 1px solid var(--divider);
-            font-size: var(--table-zoom); /* 缩放核心 */
+            font-size: var(--table-zoom); 
         }
         table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
         th, td { border: 1px solid var(--divider); padding: 0.6em; }
         th { 
-            position: sticky; top: 0; background: #EFEFEF; z-index: 2; /* 冻结首行 */
+            position: sticky; top: 0; background: #EFEFEF; z-index: 2; 
             color: #333; font-weight: bold; 
         }
-        /* 严防死守爆格，内容溢出只显示开头字母并打点 */
         td { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
 
-        /* 6. 记账表单卡片 (原封不动保留) */
+        /* 6. 记账表单卡片 */
         .form-container {
             background: rgba(255, 255, 255, 0.95); width: 85%; max-width: 900px;
             border-radius: 32px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -230,7 +228,6 @@
         .btn-cancel { background: var(--input-bg); color: var(--text-main); }
         .btn-confirm { background: var(--apple-blue); color: #ffffff; }
         .close-top-btn { align-self: flex-end; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-sub); margin-bottom: 10px;}
-
     </style>
 </head>
 <body>
@@ -293,10 +290,9 @@
             </div>
             <div id="table-wrapper">
                 <table>
-                    <!-- 严格照搬图片第一行类目，一字不差 -->
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>年份</th>
                             <th>日期</th>
                             <th>时间</th>
                             <th>用途</th>
@@ -408,10 +404,66 @@
     </div>
 
     <script>
+        // ==========================================
+        // 🚀 新增：JSONbin 云端数据引擎配置
+        // ==========================================
+        const API_KEY = "$2a$10$wMi0hs1j8z3avrDPrAIDEeBxC15MlrFUV9SIdKMxtYwQHKCw76GDy";
+        const BIN_ID = "69fac08eaaba8821977809ce";
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
         // --- 数据存储核心 ---
         let initialWallet = { tng: 0, maybank: 0, food: 0, pocket: 0 };
-        let records = []; // 存储所有账单的数组
+        let records = []; 
         let currentZoom = 1.0;
+
+        // 🚀 新增功能 1：页面一打开，立刻去云端下载记忆
+        window.onload = async function() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'X-Master-Key': API_KEY }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.record) {
+                        if (data.record.initialWallet) initialWallet = data.record.initialWallet;
+                        if (data.record.records) records = data.record.records;
+                    }
+                } else {
+                    console.log("云端尚无数据或读取失败，使用初始空白状态。");
+                }
+            } catch (error) {
+                console.error("网络请求错误，无法加载云端数据:", error);
+            } finally {
+                recalculateAll(); // 数据下载完后，立刻把屏幕上的字刷成最新的！
+            }
+        };
+
+        // 🚀 新增功能 2：后台自动把最新数据保存到云端的动作
+        async function syncToCloud() {
+            const payload = {
+                initialWallet: initialWallet,
+                records: records
+            };
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    alert("⚠️ 哎呀！数据同步到云端失败了，请检查网络！");
+                }
+            } catch (error) {
+                console.error("同步失败:", error);
+                alert("⚠️ 数据同步失败，请检查网络连接！");
+            }
+        }
+        // ==========================================
+
 
         // 点击空白处关闭下拉菜单
         document.addEventListener('click', function(e) {
@@ -446,8 +498,10 @@
             initialWallet.maybank = parseFloat(document.getElementById('set-maybank').value) || 0;
             initialWallet.food = parseFloat(document.getElementById('set-food').value) || 0;
             initialWallet.pocket = parseFloat(document.getElementById('set-pocket').value) || 0;
-            recalculateAll(); // 设置改变后，重新结合账单算账
+            
+            recalculateAll(); 
             closeSettings();
+            syncToCloud(); // 🚀 保存设置后，触发云端同步！
         }
 
         // --- 删除内容逻辑 ---
@@ -464,7 +518,6 @@
         function renderDeleteList() {
             const list = document.getElementById('delete-list');
             list.innerHTML = '';
-            // 由低到高（由旧到新）显示
             records.forEach(r => {
                 const item = document.createElement('div');
                 item.className = 'delete-item';
@@ -481,8 +534,9 @@
 
         function deleteRecord(id) {
             records = records.filter(r => r.id !== id);
-            recalculateAll(); // 删掉后重新算账
-            renderDeleteList(); // 刷新删除列表
+            recalculateAll(); 
+            renderDeleteList(); 
+            syncToCloud(); // 🚀 删除记录后，触发云端同步！
         }
 
         // --- Excel 表格逻辑 ---
@@ -506,7 +560,6 @@
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
             
-            // 模拟算出每一笔当时的余额状态，以便填入表格
             let runTng = initialWallet.tng;
             let runMaybank = initialWallet.maybank;
             let runFood = initialWallet.food;
@@ -548,7 +601,7 @@
             const now = new Date();
             document.getElementById('year').value = now.getFullYear();
             document.getElementById('date').value = (now.getMonth() + 1) + '.' + now.getDate();
-            // 自动填入当前时间的小时和分钟到输入框，供用户修改
+            
             let h = now.getHours();
             let m = now.getMinutes();
             let ampm = h >= 12 ? 'pm' : 'am';
@@ -587,7 +640,6 @@
                 return;
             }
 
-            // 获取极其精确的本地建立时间
             const now = new Date();
             const creationTime = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
@@ -609,11 +661,11 @@
             };
 
             records.push(newRecord);
-            recalculateAll(); // 每加一条，重新算一次总账
+            recalculateAll(); 
             closeForm();
+            syncToCloud(); // 🚀 添加新账目后，触发云端同步！
         }
 
-        // 重新遍历历史记录算账，保证主界面白板数字绝对准确
         function recalculateAll() {
             let currentTng = initialWallet.tng;
             let currentMaybank = initialWallet.maybank;
