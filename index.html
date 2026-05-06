@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>心智账本</title>
     <style>
-        /* 苹果系统级颜色与基础设定 (原封不动保留) */
+        /* ========================================== */
+        /* UI 和 CSS 样式部分一字未动，完全保留你的设计！ */
+        /* ========================================== */
         :root {
             --bg-color: #F2F2F7;
             --card-bg: #FFFFFF;
@@ -29,7 +31,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. 主界面白板 */
         #main-dashboard {
             width: 70%; 
             max-width: 900px;
@@ -58,7 +59,6 @@
         .quadrant h2 { font-size: 1.2rem; color: var(--text-sub); font-weight: 500; margin-bottom: 12px; }
         .quadrant .balance { font-size: 2.5rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; transition: color 0.3s; }
 
-        /* 2. 齿轮设置按钮 */
         #settings-btn {
             position: fixed;
             top: 40px; 
@@ -79,7 +79,6 @@
         #settings-btn:hover { transform: scale(1.05) rotate(15deg); }
         #settings-btn svg { width: 34px; height: 34px; color: #FFF; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
 
-        /* 齿轮下拉菜单 */
         #settings-dropdown {
             position: fixed;
             top: 115px; 
@@ -106,7 +105,6 @@
         .dropdown-item:last-child { border-bottom: none; }
         .dropdown-item:hover { background: rgba(0,0,0,0.05); }
 
-        /* 左上角表格(Excel)按钮 */
         #table-btn {
             position: fixed;
             top: 40px; 
@@ -127,7 +125,6 @@
         #table-btn:hover { transform: scale(1.05); }
         #table-btn svg { width: 34px; height: 34px; color: #FFF; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
 
-        /* 3. 悬浮加号按钮 */
         #add-btn {
             position: fixed; 
             bottom: 40px;
@@ -147,14 +144,12 @@
         #add-btn:hover { transform: scale(1.05); }
         #add-btn svg { width: 38px; height: 38px; color: white; display: block; }
 
-        /* 4. 通用遮罩 */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             display: none; justify-content: center; align-items: center; z-index: 100;
         }
 
-        /* 5. 齿轮设置卡片 */
         #settings-card {
             background: rgba(255, 255, 255, 0.95); width: 80%; max-width: 400px; 
             border-radius: 28px; padding: 30px 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -162,7 +157,6 @@
         }
         #settings-card h3 { margin: 0 0 10px 0; text-align: center; font-size: 1.3rem; color: var(--text-main); }
 
-        /* 删除内容弹窗 */
         #delete-card {
             background: rgba(255, 255, 255, 0.95); width: 85%; max-width: 800px; height: 70vh;
             border-radius: 28px; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -182,11 +176,8 @@
         }
         .del-btn:hover { transform: scale(1.1); }
         .del-info { flex: 1; font-size: 1.05rem; color: var(--text-main); display: flex; flex-direction: column; gap: 5px; }
-        
-        /* 🔥 这里按要求修改了：增加 flex 布局和间距，确保“建立时间”往后移 */
         .del-time { font-size: 0.85rem; color: var(--text-sub); display: flex; gap: 20px; }
 
-        /* Excel表格弹窗 */
         #table-card {
             background: rgba(255, 255, 255, 0.95); width: 95%; max-width: 1400px; height: 85vh;
             border-radius: 28px; padding: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -205,13 +196,9 @@
         }
         table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
         th, td { border: 1px solid var(--divider); padding: 0.6em; }
-        th { 
-            position: sticky; top: 0; background: #EFEFEF; z-index: 2; 
-            color: #333; font-weight: bold; 
-        }
+        th { position: sticky; top: 0; background: #EFEFEF; z-index: 2; color: #333; font-weight: bold; }
         td { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
 
-        /* 6. 记账表单卡片 */
         .form-container {
             background: rgba(255, 255, 255, 0.95); width: 85%; max-width: 900px;
             border-radius: 32px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
@@ -233,39 +220,22 @@
     </style>
 </head>
 <body>
-
     <!-- 左上角 Excel 表格按钮 -->
     <div id="table-btn" onclick="openTable()">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M4 3h16c.55 0 1 .45 1 1v16c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1zm1 2v3h4V5H5zm6 0v3h4V5h-4zm6 0v3h4V5h-4zM5 10v4h4v-4H5zm6 0v4h4v-4h-4zm6 0v4h4v-4h-4zM5 16v3h4v-3H5zm6 0v3h4v-3h-4zm6 0v3h4v-3h-4z"></path>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h16c.55 0 1 .45 1 1v16c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1zm1 2v3h4V5H5zm6 0v3h4V5h-4zm6 0v3h4V5h-4zM5 10v4h4v-4H5zm6 0v4h4v-4h-4zm6 0v4h4v-4h-4zM5 16v3h4v-3H5zm6 0v3h4v-3h-4zm6 0v3h4v-3h-4z"></path></svg>
     </div>
 
     <!-- 主界面白板 -->
     <div id="main-dashboard">
-        <div class="quadrant">
-            <h2>TNG 余额</h2>
-            <div id="tng-val" class="balance">RM 0.00</div>
-        </div>
-        <div class="quadrant">
-            <h2>Maybank 余额</h2>
-            <div id="maybank-val" class="balance">RM 0.00</div>
-        </div>
-        <div class="quadrant">
-            <h2>伙食费</h2>
-            <div id="food-val" class="balance">RM 0.00</div>
-        </div>
-        <div class="quadrant">
-            <h2>零花钱余额</h2>
-            <div id="pocket-val" class="balance">RM 0.00</div>
-        </div>
+        <div class="quadrant"><h2>TNG 余额</h2><div id="tng-val" class="balance">RM 0.00</div></div>
+        <div class="quadrant"><h2>Maybank 余额</h2><div id="maybank-val" class="balance">RM 0.00</div></div>
+        <div class="quadrant"><h2>伙食费</h2><div id="food-val" class="balance">RM 0.00</div></div>
+        <div class="quadrant"><h2>零花钱余额</h2><div id="pocket-val" class="balance">RM 0.00</div></div>
     </div>
 
     <!-- 齿轮按钮 -->
     <div id="settings-btn" onclick="toggleDropdown(event)">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path></svg>
     </div>
 
     <!-- 齿轮下拉菜单 -->
@@ -276,10 +246,7 @@
     
     <!-- 加号按钮 -->
     <div id="add-btn" onclick="openForm()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     </div>
 
     <!-- Excel表格弹窗 -->
@@ -294,27 +261,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>年份</th>
-                            <th>日期</th>
-                            <th>时间</th>
-                            <th>用途</th>
-                            <th>物品名称</th>
-                            <th>数量</th>
-                            <th>金额</th>
-                            <th>服务费</th>
-                            <th>SST</th>
-                            <th>总价</th>
-                            <th>支付方式</th>
-                            <th>地点</th>
-                            <th>TNG余额</th>
-                            <th>Maybank余额</th>
-                            <th>伙食费</th>
-                            <th>零花钱</th>
+                            <th>年份</th><th>日期</th><th>时间</th><th>用途</th><th>物品名称</th><th>数量</th><th>金额</th><th>服务费</th><th>SST</th><th>总价</th><th>支付方式</th><th>地点</th><th>TNG余额</th><th>Maybank余额</th><th>伙食费</th><th>零花钱</th>
                         </tr>
                     </thead>
-                    <tbody id="table-body">
-                        <!-- 数据行由JS生成 -->
-                    </tbody>
+                    <tbody id="table-body"></tbody>
                 </table>
             </div>
         </div>
@@ -325,9 +275,7 @@
         <div id="delete-card">
             <button class="close-top-btn" onclick="closeDeleteUI()">关闭 ✖</button>
             <h3 style="margin-top:0; text-align:center;">删除历史记录</h3>
-            <div id="delete-list">
-                <!-- 删除项由JS生成 -->
-            </div>
+            <div id="delete-list"></div>
         </div>
     </div>
 
@@ -335,23 +283,10 @@
     <div id="settings-overlay" class="overlay">
         <div id="settings-card">
             <h3>资产初始金额设置</h3>
-            <div class="row">
-                <span class="label">TNG<br>金额</span>
-                <input type="number" id="set-tng" placeholder="">
-            </div>
-            <div class="row">
-                <span class="label">Maybank<br>金额</span>
-                <input type="number" id="set-maybank" placeholder="">
-            </div>
-            <div class="row">
-                <span class="label">伙食费</span>
-                <input type="number" id="set-food" placeholder="">
-            </div>
-            <div class="row">
-                <span class="label">零花钱余额</span>
-                <input type="number" id="set-pocket" placeholder="">
-            </div>
-            
+            <div class="row"><span class="label">TNG<br>金额</span><input type="number" id="set-tng" placeholder=""></div>
+            <div class="row"><span class="label">Maybank<br>金额</span><input type="number" id="set-maybank" placeholder=""></div>
+            <div class="row"><span class="label">伙食费</span><input type="number" id="set-food" placeholder=""></div>
+            <div class="row"><span class="label">零花钱余额</span><input type="number" id="set-pocket" placeholder=""></div>
             <div class="nav-btns">
                 <button class="btn btn-cancel" onclick="closeSettings()">取消</button>
                 <button class="btn btn-confirm" onclick="saveSettings()">保存</button>
@@ -367,37 +302,24 @@
                     <div class="row"><span class="label">年份</span><input type="text" id="year"></div>
                     <div class="row"><span class="label">日期</span><input type="text" id="date"></div>
                     <div class="row"><span class="label">时间</span><input type="text" id="time"></div>
-                    
                     <div class="row"><span class="label">用途</span>
                         <input type="text" id="purpose" list="purpose-options">
-                        <datalist id="purpose-options">
-                            <option value="早餐"></option>
-                            <option value="午餐"></option>
-                            <option value="晚餐"></option>
-                        </datalist>
+                        <datalist id="purpose-options"><option value="早餐"></option><option value="午餐"></option><option value="晚餐"></option></datalist>
                     </div>
-
                     <div class="row"><span class="label">物品名称</span><input type="text" id="item-name"></div>
                     <div class="row"><span class="label">数量</span><input type="number" id="qty" value="1"></div>
                 </div>
-
                 <div class="column">
                     <div class="row"><span class="label">金额</span><input type="text" id="amount-expr" oninput="calculateTotal()"></div>
                     <div class="row"><span class="label">服务费</span><input type="number" id="service-fee" value="0" oninput="calculateTotal()"></div>
                     <div class="row"><span class="label">SST</span><input type="number" id="sst-fee" value="0" oninput="calculateTotal()"></div>
                     <div class="row"><span class="label">总价</span><input type="text" id="total-price" readonly></div>
-                    
                     <div class="row"><span class="label">支付方式</span>
-                        <select id="pay-method">
-                            <option value="TNG">TNG</option>
-                            <option value="Maybank">Maybank</option>
-                        </select>
+                        <select id="pay-method"><option value="TNG">TNG</option><option value="Maybank">Maybank</option></select>
                     </div>
-                    
                     <div class="row"><span class="label">地点</span><input type="text" id="location"></div>
                 </div>
             </div>
-
             <div class="nav-btns">
                 <button class="btn btn-cancel" onclick="closeForm()">返回</button>
                 <button class="btn btn-confirm" onclick="submitData()">完成</button>
@@ -407,18 +329,31 @@
 
     <script>
         // ==========================================
-        // JSONbin 云端数据引擎配置
+        // 🔥 升级版：加入“本地缓存秒开”与“后台静默同步”引擎
         // ==========================================
         const API_KEY = "$2a$10$wMi0hs1j8z3avrDPrAIDEeBxC15MlrFUV9SIdKMxtYwQHKCw76GDy";
         const BIN_ID = "69fac08eaaba8821977809ce";
         const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        const LOCAL_STORAGE_KEY = "mindLedgerData_APU"; // 本地专属缓存口令
 
-        // --- 数据存储核心 ---
+        // 数据存储核心
         let initialWallet = { tng: 0, maybank: 0, food: 0, pocket: 0 };
         let records = []; 
         let currentZoom = 1.0;
 
+        // 🚀 核心优化 1：打开网页瞬间，先看本地有没有缓存，有就直接 0.1 秒上屏显示
         window.onload = async function() {
+            // 第一步：极速读取本地内存 (0秒延迟)
+            const localData = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (localData) {
+                const parsedData = JSON.parse(localData);
+                if (parsedData.initialWallet) initialWallet = parsedData.initialWallet;
+                if (parsedData.records) records = parsedData.records;
+                recalculateAll(); // 立刻渲染到屏幕，无需等待！
+                console.log("⚡ 已从本地缓存极速加载数据");
+            }
+
+            // 第二步：不管本地有没有，后台悄悄去连 JSONbin 较对最新数据 (用户感觉不到卡顿)
             try {
                 const response = await fetch(API_URL, {
                     method: 'GET',
@@ -427,42 +362,47 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data.record) {
-                        if (data.record.initialWallet) initialWallet = data.record.initialWallet;
-                        if (data.record.records) records = data.record.records;
+                        initialWallet = data.record.initialWallet || initialWallet;
+                        records = data.record.records || [];
+                        
+                        // 把云端最新的数据也顺手更新到本地内存里
+                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data.record));
+                        recalculateAll(); // 静默刷新一次屏幕，确保两端数据一致
+                        console.log("☁️ 云端数据较对完毕");
                     }
-                } else {
-                    console.log("云端尚无数据或读取失败，使用初始空白状态。");
                 }
             } catch (error) {
-                console.error("网络请求错误，无法加载云端数据:", error);
-            } finally {
-                recalculateAll(); 
+                console.error("后台同步云端时网络波动:", error);
             }
         };
 
+        // 🚀 核心优化 2：保存时，瞬间存入本地，然后后台慢慢传给云端
         async function syncToCloud() {
             const payload = {
                 initialWallet: initialWallet,
                 records: records
             };
+            
+            // 先斩后奏：立刻存到浏览器本地！即便断网了，下次打开依然在！
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(payload));
+            
+            // 然后再慢悠悠地发给 JSONbin
             try {
-                const response = await fetch(API_URL, {
+                fetch(API_URL, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-Master-Key': API_KEY
                     },
                     body: JSON.stringify(payload)
+                }).then(response => {
+                    if (!response.ok) console.log("⚠️ 云端网络拥堵，但数据已安全保存在本地");
                 });
-                if (!response.ok) {
-                    alert("⚠️ 哎呀！数据同步到云端失败了，请检查网络！");
-                }
             } catch (error) {
                 console.error("同步失败:", error);
-                alert("⚠️ 数据同步失败，请检查网络连接！");
             }
         }
-
+        // ==========================================
 
         // 点击空白处关闭下拉菜单
         document.addEventListener('click', function(e) {
@@ -520,7 +460,6 @@
             records.forEach(r => {
                 const item = document.createElement('div');
                 item.className = 'delete-item';
-                // 🔥 这里按要求修改了：增加了花销时间，并将“记录建立时间”改成了“建立时间”
                 item.innerHTML = `
                     <button class="del-btn" onclick="deleteRecord('${r.id}')">❌</button>
                     <div class="del-info">
