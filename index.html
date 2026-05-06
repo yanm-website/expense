@@ -182,7 +182,9 @@
         }
         .del-btn:hover { transform: scale(1.1); }
         .del-info { flex: 1; font-size: 1.05rem; color: var(--text-main); display: flex; flex-direction: column; gap: 5px; }
-        .del-time { font-size: 0.85rem; color: var(--text-sub); }
+        
+        /* 🔥 这里按要求修改了：增加 flex 布局和间距，确保“建立时间”往后移 */
+        .del-time { font-size: 0.85rem; color: var(--text-sub); display: flex; gap: 20px; }
 
         /* Excel表格弹窗 */
         #table-card {
@@ -405,7 +407,7 @@
 
     <script>
         // ==========================================
-        // 🚀 新增：JSONbin 云端数据引擎配置
+        // JSONbin 云端数据引擎配置
         // ==========================================
         const API_KEY = "$2a$10$wMi0hs1j8z3avrDPrAIDEeBxC15MlrFUV9SIdKMxtYwQHKCw76GDy";
         const BIN_ID = "69fac08eaaba8821977809ce";
@@ -416,7 +418,6 @@
         let records = []; 
         let currentZoom = 1.0;
 
-        // 🚀 新增功能 1：页面一打开，立刻去云端下载记忆
         window.onload = async function() {
             try {
                 const response = await fetch(API_URL, {
@@ -435,11 +436,10 @@
             } catch (error) {
                 console.error("网络请求错误，无法加载云端数据:", error);
             } finally {
-                recalculateAll(); // 数据下载完后，立刻把屏幕上的字刷成最新的！
+                recalculateAll(); 
             }
         };
 
-        // 🚀 新增功能 2：后台自动把最新数据保存到云端的动作
         async function syncToCloud() {
             const payload = {
                 initialWallet: initialWallet,
@@ -462,7 +462,6 @@
                 alert("⚠️ 数据同步失败，请检查网络连接！");
             }
         }
-        // ==========================================
 
 
         // 点击空白处关闭下拉菜单
@@ -501,7 +500,7 @@
             
             recalculateAll(); 
             closeSettings();
-            syncToCloud(); // 🚀 保存设置后，触发云端同步！
+            syncToCloud(); 
         }
 
         // --- 删除内容逻辑 ---
@@ -521,11 +520,15 @@
             records.forEach(r => {
                 const item = document.createElement('div');
                 item.className = 'delete-item';
+                // 🔥 这里按要求修改了：增加了花销时间，并将“记录建立时间”改成了“建立时间”
                 item.innerHTML = `
                     <button class="del-btn" onclick="deleteRecord('${r.id}')">❌</button>
                     <div class="del-info">
                         <div>花销：${r.payMethod} 扣除 RM${r.total} (${r.purpose} - ${r.itemName || '无名称'})</div>
-                        <div class="del-time">记录建立时间：${r.creationTime}</div>
+                        <div class="del-time">
+                            <span>花销时间：${r.year}年${r.date} ${r.time}</span>
+                            <span>建立时间：${r.creationTime}</span>
+                        </div>
                     </div>
                 `;
                 list.appendChild(item);
@@ -536,7 +539,7 @@
             records = records.filter(r => r.id !== id);
             recalculateAll(); 
             renderDeleteList(); 
-            syncToCloud(); // 🚀 删除记录后，触发云端同步！
+            syncToCloud(); 
         }
 
         // --- Excel 表格逻辑 ---
@@ -663,7 +666,7 @@
             records.push(newRecord);
             recalculateAll(); 
             closeForm();
-            syncToCloud(); // 🚀 添加新账目后，触发云端同步！
+            syncToCloud(); 
         }
 
         function recalculateAll() {
